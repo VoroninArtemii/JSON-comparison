@@ -1,9 +1,12 @@
 #include <string>
 #include <iostream>
+#include <vector>
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/beast.hpp>
 #include <nlohmann/json.hpp>
+
+#define ll long long
 
 using namespace boost::beast;
 using namespace boost::asio;
@@ -15,6 +18,21 @@ const string port = "443";
 
 template<typename T>
 int compare(T json_1, T json_2){
+    vector<string> json_1_only;
+    vector<string> json_2_only;
+    ll i = 0, j = 0;
+    while (i != json_1["length"] && j != json_2["length"]){
+        if (json_2["packages"][j]["name"] == json_1["packages"][i]["name"]){
+            i++;
+            j++;
+        }else if (json_2["packages"][j]["name"] > json_1["packages"][i]["name"]){
+            json_1_only.push_back(json_1["packages"][i]["name"]);
+            i++;
+        }else{
+            json_2_only.push_back(json_2["packages"][j]["name"]);
+            j++;
+        }
+    }
     return 0;
 }
 
@@ -43,10 +61,9 @@ int main(int argc, char *argv[]){
     http::response<http::string_body> res_1;
     get_response(&res_1, argv[1]);
     auto json_1 = nlohmann::json::parse(res_1.body());
-    std::cout<<res_1.base()<<std::endl;
     http::response<http::string_body> res_2;
     get_response(&res_2, argv[2]);
     auto json_2 = nlohmann::json::parse(res_2.body());
-    std::cout<<res_2.base()<<std::endl;
+    compare(json_1, json_2);
     return 0;
 }
