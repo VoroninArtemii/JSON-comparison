@@ -1,1 +1,0 @@
-/usr/bin/c++ -rdynamic CMakeFiles/JSON-comparison.dir/main.cpp.o -o JSON-comparison  -lcrypto -lssl 

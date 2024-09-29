@@ -1,3 +1,0 @@
-/home/artemii/Downloads/JSON-comparison/build/CMakeFiles/JSON-comparison.dir
-/home/artemii/Downloads/JSON-comparison/build/CMakeFiles/edit_cache.dir
-/home/artemii/Downloads/JSON-comparison/build/CMakeFiles/rebuild_cache.dir
