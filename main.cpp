@@ -1,6 +1,5 @@
 #include <string>
 #include <iostream>
-#include <vector>
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/beast.hpp>
@@ -21,7 +20,7 @@ int compare(T json_1, T json_2){
     nlohmann::json json_1_only;
     nlohmann::json json_2_only;
     nlohmann::json json_1_more_version;
-    ll i = 0, j = 0, arch_i = 0, arch_j = 0;
+    ll i = 0, j = 0;
     while (i != json_1["length"] && j != json_2["length"]){
         if (json_2["packages"][j]["arch"] < json_1["packages"][i]["arch"]){
             json_2_only += json_2["packages"][j];
@@ -50,25 +49,24 @@ int compare(T json_1, T json_2){
 }
 
 int get_response(http::response<http::string_body> *res, string branch){
-    try{
-        string full_path = path + branch;
-        io_service svc;
-        ssl::context ctx(ssl::context::sslv23_client);
-        ssl::stream<ip::tcp::socket> ssocket = {svc, ctx};
-        ip::tcp::resolver resolver(svc);
-        auto it = resolver.resolve(host, port);
-        connect(ssocket.lowest_layer(), it);
-        ssocket.handshake(ssl::stream_base::handshake_type::client);
-        http::request<http::string_body> req = {http::verb::get, full_path, 11};
-        req.set(http::field::host, host);
-        http::write(ssocket, req);
-        flat_buffer buffer;
-        http::read(ssocket, buffer, *res);
-        boost::system::error_code ec;
-        ssocket.shutdown();
-        ssocket.lowest_layer().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
-        ssocket.lowest_layer().close();
-    }catch(...){
+    string full_path = path + branch;
+    io_service svc;
+    ssl::context ctx(ssl::context::sslv23_client);
+    ssl::stream<ip::tcp::socket> ssocket = {svc, ctx};
+    ip::tcp::resolver resolver(svc);
+    auto it = resolver.resolve(host, port);
+    connect(ssocket.lowest_layer(), it);
+    ssocket.handshake(ssl::stream_base::handshake_type::client);
+    http::request<http::string_body> req = {http::verb::get, full_path, 11};
+    req.set(http::field::host, host);
+    write(ssocket, req);
+    flat_buffer buffer;
+    read(ssocket, buffer, *res);
+    boost::system::error_code ec;
+    ssocket.shutdown();
+    ssocket.lowest_layer().shutdown(ip::tcp::socket::shutdown_both, ec);
+    ssocket.lowest_layer().close();
+    if (obsolete_reason(res->result()) != "OK"){
         cout<<"Incorrect request! Try again!"<<endl;
         return 1;
     }
@@ -76,6 +74,10 @@ int get_response(http::response<http::string_body> *res, string branch){
 }
 
 int main(int argc, char *argv[]){
+    if (argc != 3){
+        cout<<"Incorrect number of parameters!"<<endl;
+        return 1;
+    }
     http::response<http::string_body> res_1;
     if (get_response(&res_1, argv[1])){
         return 1;
