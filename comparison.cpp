@@ -29,6 +29,31 @@ int compare(nlohmann::json json_1, nlohmann::json json_2){
             j++;
         }
     }
+    ofstream out;
+    out.open("json_1_only.json");
+    if (out.is_open()){
+        out<<json_1_only<<endl;
+    }else{
+        cout<<"Error with saving to a file!"<<endl;
+        return 1;
+    }
+    out.close(); 
+    out.open("json_2_only.json");
+    if (out.is_open()){
+        out<<json_2_only<<endl;
+    }else{
+        cout<<"Error with saving to a file!"<<endl;
+        return 1;
+    }
+    out.close(); 
+    out.open("json_1_more_version.json");
+    if (out.is_open()){
+        out<<json_1_more_version<<endl;
+    }else{
+        cout<<"Error with saving to a file!"<<endl;
+        return 1;
+    }
+    out.close(); 
     return 0;
 }
 
