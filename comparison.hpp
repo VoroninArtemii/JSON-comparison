@@ -19,8 +19,7 @@ const string host = "rdb.altlinux.org";
 const string path = "/api/export/branch_binary_packages/";
 const string port = "443";
 
-template<typename T>
-int compare(T json_1, T json_2);
+int compare(nlohmann::json json_1, nlohmann::json json_2);
 int get_response(http::response<http::string_body> *res, string branch);
 
 #endif

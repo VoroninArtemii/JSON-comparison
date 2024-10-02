@@ -1,7 +1,6 @@
 #include "comparison.hpp"
 
-template<typename T>
-int compare(T json_1, T json_2){
+int compare(nlohmann::json json_1, nlohmann::json json_2){
     nlohmann::json json_1_only;
     nlohmann::json json_2_only;
     nlohmann::json json_1_more_version;
