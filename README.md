@@ -8,7 +8,10 @@ You need permissions of root. Execute:
 
 ```
 su root
+apt-get update
 apt-get install git gcc-c++ cmake boost-asio-devel libssl-devel nlohmann-json-devel
+git clone https://github.com/VoroninArtemii/JSON-comparison
+cd JSON-comparison/
 ```
 
 # Usage
@@ -18,7 +21,6 @@ You can choose one of two methods for building.
 ## CMake 
 
 ```
-git clone https://github.com/VoroninArtemii/JSON-comparison
 cd build/
 cmake ..
 make
@@ -28,7 +30,6 @@ make
 ## Commands 
 
 ```
-git clone https://github.com/VoroninArtemii/JSON-comparison
 g++ -fpic -c comparison.cpp -o comparison.o
 g++ -shared comparison.o -o libcomparison.so
 g++ main.cpp -lcomparison -lssl -lcrypto -L. -o JSON-comparison

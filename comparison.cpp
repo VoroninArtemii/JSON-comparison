@@ -37,7 +37,7 @@ int compare(nlohmann::json json_1, nlohmann::json json_2){
         cout<<"Error with saving to a file!"<<endl;
         return 1;
     }
-    out.close(); 
+    out.close();
     out.open("json_2_only.json");
     if (out.is_open()){
         out<<json_2_only<<endl;
@@ -45,7 +45,7 @@ int compare(nlohmann::json json_1, nlohmann::json json_2){
         cout<<"Error with saving to a file!"<<endl;
         return 1;
     }
-    out.close(); 
+    out.close();
     out.open("json_1_more_version.json");
     if (out.is_open()){
         out<<json_1_more_version<<endl;
@@ -53,7 +53,7 @@ int compare(nlohmann::json json_1, nlohmann::json json_2){
         cout<<"Error with saving to a file!"<<endl;
         return 1;
     }
-    out.close(); 
+    out.close();
     return 0;
 }
 
@@ -70,6 +70,7 @@ int get_response(http::response<http::string_body> *res, string branch){
     req.set(http::field::host, host);
     write(ssocket, req);
     flat_buffer buffer;
+    //res->body_limit((numeric_limits<uint64_t>::max)());
     read(ssocket, buffer, *res);
     boost::system::error_code ec;
     ssocket.shutdown();
