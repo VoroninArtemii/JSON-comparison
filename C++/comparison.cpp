@@ -70,7 +70,6 @@ int get_response(http::response<http::string_body> *res, string branch){
     req.set(http::field::host, host);
     write(ssocket, req);
     flat_buffer buffer;
-    //res->body_limit((numeric_limits<uint64_t>::max)());
     read(ssocket, buffer, *res);
     boost::system::error_code ec;
     ssocket.shutdown();

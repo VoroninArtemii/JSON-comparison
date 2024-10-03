@@ -46,7 +46,6 @@ def compare(branch_1, branch_2):
     with open('json_1_only.json', 'w') as file:
         json.dump(json_1_only, file)
     file.close()
-    print(len(json_1_only))
 
     with open('json_2_only.json', 'w') as file:
         json.dump(json_2_only, file)
