@@ -11,7 +11,7 @@ su root
 apt-get update
 apt-get install git gcc-c++ cmake boost-asio-devel libssl-devel nlohmann-json-devel
 git clone https://github.com/VoroninArtemii/JSON-comparison
-cd JSON-comparison/
+cd JSON-comparison/C++
 ```
 
 # Usage
