@@ -1,6 +1,6 @@
 # Description
 
-The algorithm for comparing two branches using the two pointer method. Algorithm complexity is O(N). This library _comparison_ uses some requirements which you need to install into your system. **If you want to use this library with other code you always need to install requirements and to build the project with flags `-lcrypto -lssl`. Don't forget to set the enviroment variable `LD_LIBRARY_PATH`**. That is already written in the _CMakeLists.txt_ for this repository. The _main.cpp_ is an example of using the library. It gets responses, compares branches and prints a result to files *json_1_only.json*, *json_2_only.json* and *json_1_more_version.json*.
+An algorithm for comparing two branches from https://rdb.altlinux.org/api/export/branch_binary_packages using the two-pointer method. Algorithm complexity is O(N). This library _comparison_ uses some requirements which you need to install into your system. **If you want to use this library with other code you always need to install requirements and to build the project with flags `-lcrypto -lssl`. Don't forget to set the enviroment variable `LD_LIBRARY_PATH`**. That is already written in the _CMakeLists.txt_ for this repository. The _main.cpp_ is an example of using the library. It gets responses, compares branches and prints a result to files *json_1_only.json*, *json_2_only.json* and *json_1_more_version.json*.
 
 # Installing dependencies
 
